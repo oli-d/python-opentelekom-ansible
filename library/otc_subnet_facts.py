@@ -91,7 +91,7 @@ subnets:
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.openstack import openstack_full_argument_spec, openstack_cloud_from_module
 
-from opentelekom.vpc import vpc_service, vpc2_service
+from opentelekom.vpc import vpc_service
 from opentelekom.connection import connect_from_ansible
 
 from openstack import exceptions 
@@ -108,7 +108,6 @@ def main():
     cloud = connect_from_ansible(module)
     try:
         cloud.add_service( vpc_service.VpcService("vpc", aliases=['vpc'] ))
-        cloud.add_service( vpc2_service.Vpc2Service("vpc2.0", aliases=['vpc2'] ))
 
         subnets = cloud.vpc.find_subnet(name_or_id=module.params['name'],
                                        **module.params['filters'])
